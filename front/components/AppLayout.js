@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu, Input, Button } from "antd";
 import Link from "next/link";
+import propTypes from "prop-types";
 
 const AppLayout = ({ children }) => {
   return (
@@ -30,6 +31,10 @@ const AppLayout = ({ children }) => {
       {children}
     </div>
   );
+};
+
+AppLayout.propTypes = {
+  children: propTypes.node
 };
 
 export default AppLayout;
