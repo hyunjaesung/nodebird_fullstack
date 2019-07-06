@@ -1,6 +1,14 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Checkbox, Button } from "antd";
 
+export const useInput = (initValue = null) => {
+  const [value, setter] = useState(initValue);
+  const handler = useCallback(e => {
+    setter(e.target.value);
+  }, []);
+  return [value, handler];
+};
+
 const Signup = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [term, setTerm] = useState(false);
@@ -9,14 +17,6 @@ const Signup = () => {
 
   // 자식컴포넌트에 props 로 넘기는 함수들은 useCallback으로 감싸줘야한다
   // state가 바뀔때마다 통째로 바뀌고 함수가 새로생성, 기존의 오브젝트와 다른 오브젝트가 되버리고 -> 의도치않은 리렌더링 발생
-
-  const useInput = (initValue = null) => {
-    const [value, setter] = useState(initValue);
-    const handler = useCallback(e => {
-      setter(e.target.value);
-    }, []);
-    return [value, handler];
-  };
 
   const [nick, onChangeNick] = useInput("");
   const [id, onChangeId] = useInput("");

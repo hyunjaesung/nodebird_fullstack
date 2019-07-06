@@ -1,13 +1,15 @@
 import React from "react";
-import { Menu, Input, Button, Row, Col, Avatar, Card } from "antd";
+import { Menu, Input, Button, Form, Row, Col, Avatar, Card } from "antd";
 import Link from "next/link";
 import propTypes from "prop-types";
+import LoginForm from "./LoginForm";
 
 const dummy = {
   nickname: "스티브",
   Post: [],
   Followings: [],
-  Followers: []
+  Followers: [],
+  isLoggedIn: false
 };
 // 실무에서 프론트개발이 더빠를때는 더미데이터를 만들고 받을거 예상해서 객체를 만들어준다
 
@@ -36,39 +38,39 @@ const AppLayout = ({ children }) => {
         {/* xs는 모바일 sm은 작은화면 md는 중간화면 lg는 큰화면*/}
         {/* 24등분함, 24는 좌우로 통째로 12면 절반 */}
         {/* 섞어쓰는것 따라 반응형이 된다 */}
-        <Col xs={24} md={12}>
-          <Card
-            actions={[
-              <div key="twit">
-                짹짹 <br />
-                {dummy.Post.length}
-              </div>,
-              <div key="following">
-                팔로윙 <br />
-                {dummy.Followings.length}
-              </div>,
-              <div key="follower">
-                팔로워 <br />
-                {dummy.Followers.length}
-              </div>
-            ]}
-          >
-            <Card.Meta
-              avatar={<Avatar>{dummy.nickname[0]}</Avatar>}
-              // 앞글자
-              title={dummy.nickname}
-            />
-          </Card>
-          <Link href="/signup">
-            <a>
-              <Button>회원가입</Button>
-            </a>
-          </Link>
-        </Col>
         <Col xs={24} md={6}>
+          {/* 삼항연산자로 로그인따라 화면다르게 */}
+          {dummy.isLoggedIn ? (
+            <Card
+              actions={[
+                <div key="twit">
+                  짹짹 <br />
+                  {dummy.Post.length}
+                </div>,
+                <div key="following">
+                  팔로윙 <br />
+                  {dummy.Followings.length}
+                </div>,
+                <div key="follower">
+                  팔로워 <br />
+                  {dummy.Followers.length}
+                </div>
+              ]}
+            >
+              <Card.Meta
+                avatar={<Avatar>{dummy.nickname[0]}</Avatar>}
+                // 앞글자
+                title={dummy.nickname}
+              />
+            </Card>
+          ) : (
+            <LoginForm />
+          )}
+        </Col>
+        <Col xs={24} md={12}>
           {children}
         </Col>
-        <Col xs={24} md={6}>
+        <Col xs={24} md={12}>
           세번째
         </Col>
       </Row>
