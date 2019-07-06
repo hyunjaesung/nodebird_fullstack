@@ -72,7 +72,9 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={12}>
-          세번째
+          <Link href="knowhere.cf">
+            <a target="_blank"> Made By Steve </a>
+          </Link>
         </Col>
       </Row>
     </div>
