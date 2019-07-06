@@ -115,67 +115,73 @@ var _jsxFileName = "D:\\Webdev\\nodebird_fullstack\\front\\components\\AppLayout
 
 
 
+var dummy = {
+  nickname: "스티브",
+  Post: [],
+  Followings: [],
+  Followers: []
+}; // 실무에서 프론트개발이 더빠를때는 더미데이터를 만들고 받을거 예상해서 객체를 만들어준다
 
 var AppLayout = function AppLayout(_ref) {
   var children = _ref.children;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 16
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"], {
     mode: "horizontal",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9
+      lineNumber: 17
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
     key: "home",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11
+      lineNumber: 19
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12
+      lineNumber: 20
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13
+      lineNumber: 21
     },
     __self: this
   }, "\uB178\uB4DC\uBC84\uB4DC"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
     key: "profile",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16
+      lineNumber: 24
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/profile",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17
+      lineNumber: 25
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18
+      lineNumber: 26
     },
     __self: this
   }, "\uD504\uB85C\uD544"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Menu"].Item, {
     key: "mail",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21
+      lineNumber: 29
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Input"].Search, {
@@ -185,29 +191,120 @@ var AppLayout = function AppLayout(_ref) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22
+      lineNumber: 30
     },
     __self: this
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Row"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    xs: 24,
+    md: 12,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 39
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Card"], {
+    actions: [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: "twit",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42
+      },
+      __self: this
+    }, "\uC9F9\uC9F9 ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 43
+      },
+      __self: this
+    }), dummy.Post.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: "following",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 46
+      },
+      __self: this
+    }, "\uD314\uB85C\uC719 ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 47
+      },
+      __self: this
+    }), dummy.Followings.length), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: "follower",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 50
+      },
+      __self: this
+    }, "\uD314\uB85C\uC6CC ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 51
+      },
+      __self: this
+    }), dummy.Followers.length)],
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 40
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Card"].Meta, {
+    avatar: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Avatar"], {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 57
+      },
+      __self: this
+    }, dummy.nickname[0]) // 앞글자
+    ,
+    title: dummy.nickname,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 56
+    },
+    __self: this
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: "/signup",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 26
+      lineNumber: 62
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27
+      lineNumber: 63
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Button"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 28
+      lineNumber: 64
     },
     __self: this
-  }, "\uD68C\uC6D0\uAC00\uC785"))), children);
+  }, "\uD68C\uC6D0\uAC00\uC785")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    xs: 24,
+    md: 6,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 68
+    },
+    __self: this
+  }, children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_1__["Col"], {
+    xs: 24,
+    md: 6,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 71
+    },
+    __self: this
+  }, "\uC138\uBC88\uC9F8")));
 };
 
 AppLayout.propTypes = {
