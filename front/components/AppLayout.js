@@ -34,7 +34,8 @@ const AppLayout = ({ children }) => {
         </Menu.Item>
       </Menu>
 
-      <Row>
+      <Row gutter={10}>
+        {/* gutter는 Col간의 간격 */}
         {/* xs는 모바일 sm은 작은화면 md는 중간화면 lg는 큰화면*/}
         {/* 24등분함, 24는 좌우로 통째로 12면 절반 */}
         {/* 섞어쓰는것 따라 반응형이 된다 */}
