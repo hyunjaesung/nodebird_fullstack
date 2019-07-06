@@ -1,48 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Head from "next/head";
 import AppLayout from "../components/AppLayout";
 import { Form, Input, Checkbox, Button } from "antd";
 
 const Signup = () => {
-  const [id, setId] = useState("");
-  const [nick, setNick] = useState("");
-  const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [term, setTerm] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [TermError, setTermError] = useState(false);
 
-  const onSubmit = e => {
-    e.preventDefault();
-    if (password !== passwordCheck) {
-      return setPasswordError(true);
-    }
-    if (!term) {
-      return setTermError(true);
-    }
+  // 자식컴포넌트에 props 로 넘기는 함수들은 useCallback으로 감싸줘야한다
+  // state가 바뀔때마다 통째로 바뀌고 함수가 새로생성, 기존의 오브젝트와 다른 오브젝트가 되버리고 -> 의도치않은 리렌더링 발생
 
-    console.log({ id, nick, password, passwordCheck, term });
+  const useInput = (initValue = null) => {
+    const [value, setter] = useState(initValue);
+    const handler = useCallback(e => {
+      setter(e.target.value);
+    }, []);
+    return [value, handler];
   };
-  const onChangeId = e => {
-    setId(e.target.value);
-  };
-  const onChangeNick = e => {
-    setNick(e.target.value);
-  };
-  const onChangePassword = e => {
-    setPassword(e.target.value);
-  };
-  const onChangePasswordCheck = e => {
-    setPasswordError(e.target.value !== password); // 비밀번호체크
-    setPasswordCheck(e.target.value);
-  };
-  const onChangeTerm = e => {
+
+  const [nick, onChangeNick] = useInput("");
+  const [id, onChangeId] = useInput("");
+  const [password, onChangePassword] = useInput("");
+
+  const onSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      if (password !== passwordCheck) {
+        return setPasswordError(true);
+      }
+      if (!term) {
+        return setTermError(true);
+      }
+
+      console.log({ id, nick, password, passwordCheck, term });
+    },
+    [password, passwordCheck, term]
+  );
+  // useCallback을 쓰려면 dependecny 에 이용하는 state값들 다넣어줘야함
+  // 기억력 높아져서 state바뀔때 이벤트리스너 함수 다시 생성 가능
+
+  const onChangePasswordCheck = useCallback(
+    e => {
+      setPasswordError(e.target.value !== password); // 비밀번호체크
+      setPasswordCheck(e.target.value);
+    },
+    [password]
+  );
+
+  const onChangeTerm = useCallback(e => {
     setTermError(false); // 약관동의 체크
     setTerm(e.target.checked); // 체크박스는 이걸로
-  };
-
-  // 만약 훅을 쓴다면 커스텀 훅(useInput)을 만들어서 아래 value에 값을넣고 , onChange에 set함수를 써주면된다
-  // 위의 onchange 함수의 반복을 줄일수있다
+  }, []);
 
   return (
     <>
