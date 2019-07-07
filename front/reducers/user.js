@@ -8,14 +8,14 @@ const initState = {
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 
-const loginAction = {
+export const loginAction = {
   type: LOG_IN,
   data: {
     nickname: "스티브"
   }
 };
 
-const logoutAction = {
+export const logoutAction = {
   type: LOG_OUT
 };
 
@@ -42,3 +42,5 @@ const reducer = (state = initState, action) => {
       return state;
   }
 };
+
+export default reducer;
