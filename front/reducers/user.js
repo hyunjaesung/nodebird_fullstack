@@ -14,16 +14,21 @@ const initState = {
 
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
+export const SIGN_UP = "SIGN_UP";
 
 export const loginAction = {
   type: LOG_IN
-  // data: {
-  //   nickname: "스티브"
-  // }
 };
 
 export const logoutAction = {
   type: LOG_OUT
+};
+
+export const signupAction = data => {
+  return {
+    type: SIGN_UP,
+    data // 동적데이터가 들어감
+  };
 };
 
 // 리듀서
@@ -42,6 +47,13 @@ const reducer = (state = initState, action) => {
         ...state,
         isLoggedIn: false,
         user: null
+      };
+    }
+
+    case SIGN_UP: {
+      return {
+        ...state,
+        signUpData: action.data
       };
     }
 
