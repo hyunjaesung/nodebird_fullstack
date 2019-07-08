@@ -1735,8 +1735,14 @@ NodeBird.propTypes = {
   store: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
 };
 /* harmony default export */ __webpack_exports__["default"] = (next_redux_wrapper__WEBPACK_IMPORTED_MODULE_5___default()(function (initState, options) {
-  var store = Object(redux__WEBPACK_IMPORTED_MODULE_4__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_7__["default"], initState); // 여기다가 store 커스터 마이징
+  // 액션과 스토어 사이 작동
+  var middlewares = [];
+  var enhancer = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(redux__WEBPACK_IMPORTED_MODULE_4__["applyMiddleware"].apply(void 0, middlewares), !options.isServer && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : function (f) {
+    return f;
+  }); // isServer는 서버인지아닌지 판단 서버는 window없음 next에서 제공
+  // compose 는 미들웨어끼리 합성
 
+  var store = Object(redux__WEBPACK_IMPORTED_MODULE_4__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_7__["default"], initState, enhancer);
   return store;
 })(NodeBird)); // 고위 컴포넌트라고 부르는데 기존 컴포넌트의 기능을 확장해준다
 // NodeBird의 props로 store를 넣어줌

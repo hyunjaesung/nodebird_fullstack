@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import propTypes from "prop-types";
 
-import { createStore } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
 import withRedux from "next-redux-wrapper";
 // 일반적인 리액트와 다르게 next에서는 이걸써서 store 전달필요
 // NodeBird props에 따로 전달할 수단이없네..
@@ -40,8 +40,17 @@ NodeBird.propTypes = {
 };
 
 export default withRedux((initState, options) => {
-  const store = createStore(reducer, initState);
-  // 여기다가 store 커스터 마이징
+  // 액션과 스토어 사이 작동
+  const middlewares = [];
+  const enhancer = compose(
+    applyMiddleware(...middlewares),
+    !options.isServer && window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : f => f
+  );
+  // isServer는 서버인지아닌지 판단 서버는 window없음 next에서 제공
+  // compose 는 미들웨어끼리 합성
+  const store = createStore(reducer, initState, enhancer);
   return store;
 })(NodeBird);
 // 고위 컴포넌트라고 부르는데 기존 컴포넌트의 기능을 확장해준다

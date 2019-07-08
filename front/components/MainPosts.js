@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Avatar, Icon, Card } from "antd";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 
 const MainPosts = ({ post }) => {
   return (
@@ -24,12 +24,12 @@ const MainPosts = ({ post }) => {
   );
 };
 
-MainPosts.PropTypes = {
-  post: PropTypes.shape({
-    User: PropTypes.object,
-    content: PropTypes.string,
-    img: PropTypes.string,
-    createAt: PropTypes.object
+MainPosts.propTypes = {
+  post: propTypes.shape({
+    User: propTypes.object,
+    content: propTypes.string,
+    img: propTypes.string,
+    createAt: propTypes.object
   })
 };
 
