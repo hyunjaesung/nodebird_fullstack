@@ -3,17 +3,12 @@ import { Menu, Input, Button, Form, Row, Col, Avatar, Card } from "antd";
 import Link from "next/link";
 import propTypes from "prop-types";
 import LoginForm from "./LoginForm";
-
-const dummy = {
-  nickname: "스티브",
-  Post: [],
-  Followings: [],
-  Followers: [],
-  isLoggedIn: false
-};
-// 실무에서 프론트개발이 더빠를때는 더미데이터를 만들고 받을거 예상해서 객체를 만들어준다
+import { useSelector } from "react-redux";
+import UserProfile from "./UserProfile";
 
 const AppLayout = ({ children }) => {
+  const { isLoggedIn } = useSelector(state => state.user);
+
   return (
     <div>
       <Menu mode="horizontal">
@@ -41,33 +36,9 @@ const AppLayout = ({ children }) => {
         {/* 섞어쓰는것 따라 반응형이 된다 */}
         <Col xs={24} md={6}>
           {/* 삼항연산자로 로그인따라 화면다르게 */}
-          {dummy.isLoggedIn ? (
-            <Card
-              actions={[
-                <div key="twit">
-                  짹짹 <br />
-                  {dummy.Post.length}
-                </div>,
-                <div key="following">
-                  팔로윙 <br />
-                  {dummy.Followings.length}
-                </div>,
-                <div key="follower">
-                  팔로워 <br />
-                  {dummy.Followers.length}
-                </div>
-              ]}
-            >
-              <Card.Meta
-                avatar={<Avatar>{dummy.nickname[0]}</Avatar>}
-                // 앞글자
-                title={dummy.nickname}
-              />
-            </Card>
-          ) : (
-            <LoginForm />
-          )}
+          {isLoggedIn ? <UserProfile /> : <LoginForm />}
         </Col>
+
         <Col xs={24} md={12}>
           {children}
         </Col>

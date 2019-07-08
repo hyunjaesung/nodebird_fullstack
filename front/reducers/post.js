@@ -1,5 +1,13 @@
 const initState = {
-  mainPosts: []
+  imagePaths: [],
+  mainPosts: [
+    {
+      User: { nickname: "steve", id: 1 },
+      content: "첫번째게시글",
+      img:
+        "https://cdn.designbyhumans.com/product_images/p/898810.f56.f949aS7ay1Cm2MjUAAA-650x650-b-p.jpg"
+    }
+  ]
 };
 
 export const ADD_POST = "ADD_POST";
