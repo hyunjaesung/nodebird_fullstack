@@ -1,4 +1,4 @@
-import { all, fork, takeLatest, call, put } from "redux-saga/effects";
+import { all, fork, takeLatest, call, put, take } from "redux-saga/effects";
 import { LOG_IN, LOG_IN_SUCCESS, LOG_IN_FAILURE } from "../reducers/user";
 
 function loginAPI() {
@@ -30,6 +30,16 @@ function* watchLogin() {
   // 일종의 액션리스너
 }
 
+const HELLO_SAGA = "HELLO_SAGA";
+
+function* helloSaga() {
+  console.log("beforeSaga");
+  while (true) {
+    yield take(HELLO_SAGA);
+    console.log("hellosaga");
+  }
+}
+
 export default function* userSaga() {
-  yield all([]);
+  yield all([fork(watchLogin), helloSaga()]); // 제너레이터 실행
 }
