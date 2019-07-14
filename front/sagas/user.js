@@ -41,7 +41,7 @@ function* login() {
 }
 
 function* watchLogin() {
-  yield takeEvery(LOG_IN_REQUEST, login);
+  yield takeLatest(LOG_IN_REQUEST, login);
 }
 
 function signUpAPI() {
@@ -52,7 +52,7 @@ function signUpAPI() {
 function* signUp() {
   try {
     // yield call(signUpAPI);
-
+    yield delay(2000);
     yield put({
       // put은 dispatch 동일
       type: SIGN_UP_SUCCESS
