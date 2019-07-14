@@ -7,9 +7,18 @@ import {
   put,
   take
 } from "redux-saga/effects";
-import { LOG_IN, LOG_IN_SUCCESS, LOG_IN_FAILURE } from "../reducers/user";
+import {
+  LOG_IN_REQUEST,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+  SIGN_UP_REQUEST,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE
+} from "../reducers/user";
+import axios from "axios";
 
 function loginAPI() {
+  return axios.post("/login");
   // 서버에 요청 보내기
 }
 
@@ -30,29 +39,36 @@ function* login() {
   }
 }
 
-// function* watchLogin() {
-//   yield takeLatest(LOG_IN, login);
-
-//   //여기서 takeLatest가 LOG_IN 액션이 dispatch 되는걸 기다려서
-//   // dispatch될때 login 제너레이터를 호출한다
-//   // 일종의 액션리스너
-// }
-
-// const HELLO_SAGA = "HELLO_SAGA";
-
-// function* watchHello() {
-//   console.log("beforeSaga");
-//   while (true) {
-//     yield take(HELLO_SAGA);
-//     console.log("hellosaga");
-//   }
-// }
-
 function* watchLogin() {
-  takeLatest(LOG_IN, login);
+  takeLatest(LOG_IN_REQUEST, login);
 }
 
-function* watchSignUp() {}
+function signUpAPI() {
+  // 서버에 요청을 보내는 부분
+  return axios.post("/signup");
+}
+
+function* signUp() {
+  try {
+    // yield call(signUpAPI);
+
+    yield put({
+      // put은 dispatch 동일
+      type: SIGN_UP_SUCCESS
+    });
+  } catch (e) {
+    // loginAPI 실패
+    console.error(e);
+    yield put({
+      type: SIGN_UP_FAILURE,
+      error: e
+    });
+  }
+}
+
+function* watchSignUp() {
+  yield takeEvery(SIGN_UP_REQUEST, signUp);
+}
 
 // all은 여러 이펙트를 동시 실행가능케함
 export default function* userSaga() {
