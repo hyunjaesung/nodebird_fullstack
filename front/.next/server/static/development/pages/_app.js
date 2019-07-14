@@ -2201,24 +2201,9 @@ function watchLogin() {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          if (false) {}
+          Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])(_reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN"], login);
 
-          _context2.next = 3;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["take"])(_reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN"]);
-
-        case 3:
-          _context2.next = 5;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
-            // put은 사가의 디스패치
-            //LOG_IN  액션받으면 LOG_IN_SUCCESS 디스패치
-            type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN_SUCCESS"]
-          });
-
-        case 5:
-          _context2.next = 0;
-          break;
-
-        case 7:
+        case 1:
         case "end":
           return _context2.stop();
       }
@@ -2245,7 +2230,7 @@ function userSaga() {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([watchLogin(), watchSignUp()]);
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLogin), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchSignUp)]);
 
         case 2:
         case "end":

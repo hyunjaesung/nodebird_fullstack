@@ -1,4 +1,12 @@
-import { all, fork, takeLatest, call, put, take } from "redux-saga/effects";
+import {
+  all,
+  fork,
+  takeLatest,
+  takeEvery,
+  call,
+  put,
+  take
+} from "redux-saga/effects";
 import { LOG_IN, LOG_IN_SUCCESS, LOG_IN_FAILURE } from "../reducers/user";
 
 function loginAPI() {
@@ -41,21 +49,14 @@ function* login() {
 // }
 
 function* watchLogin() {
-  while (true) {
-    yield take(LOG_IN);
-    yield put({
-      // put은 사가의 디스패치
-      //LOG_IN  액션받으면 LOG_IN_SUCCESS 디스패치
-      type: LOG_IN_SUCCESS
-    });
-  }
+  takeLatest(LOG_IN, login);
 }
 
 function* watchSignUp() {}
 
 // all은 여러 이펙트를 동시 실행가능케함
 export default function* userSaga() {
-  yield all([watchLogin(), watchSignUp()]);
+  yield all([fork(watchLogin), fork(watchSignUp)]);
   // 괄호 위치 유의!!
   // 리스너 여러개 쓰고싶으면 all을 씀
   // all은 여러 이펙트를 동시 실행가능케함
