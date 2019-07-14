@@ -51,18 +51,18 @@ export const REMOVE_FOLLOWER_FAILURE = "REMOVE_FOLLOWER_FAILURE";
 
 export const ADD_POST_TO_ME = "ADD_POST_TO_ME"; // 중요한 액션, 리듀서의 단점때문에 만듬
 
-export const loginAction = data => {
+export const loginRequestAction = data => {
   return {
     type: LOG_IN_REQUEST,
     data
   };
 };
 
-export const logoutAction = {
+export const logoutRequestAction = {
   type: LOG_OUT_REQUEST
 };
 
-export const signupAction = data => {
+export const signupRequestAction = data => {
   return {
     type: SIGN_UP_REQUEST,
     data // 동적데이터가 들어감
@@ -77,7 +77,7 @@ export const signupSuccess = data => {
 };
 // 리듀서
 
-export default (state = initialState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
     case LOG_IN_REQUEST: {
       return {

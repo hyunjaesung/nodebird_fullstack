@@ -3,20 +3,22 @@ import { Input, Button, Form } from "antd";
 import Link from "next/link";
 import { useInput } from "../components/SignupForm";
 
-import { useDispatch } from "react-redux";
-import { loginAction } from "../reducers/user";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRequestAction } from "../reducers/user";
 
 const LoginForm = () => {
   const [id, onChangeId] = useInput("");
 
   const [password, onChangePassword] = useInput("");
 
+  const { isLoggingIn } = useSelector(state => state.user);
+
   const dispatch = useDispatch();
 
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault();
-      dispatch(loginAction);
+      dispatch(loginRequestAction({ id, password }));
     },
     [id, password]
   );
@@ -44,7 +46,7 @@ const LoginForm = () => {
           style={{ marginTop: "10px" }}
           type="primary"
           htmlType="submit"
-          loading={false}
+          loading={isLoggingIn}
         >
           {/* 여기에 loading true 주면 바로 빙글빙글돔 간편한 엔트디 장점 */}
           로그인

@@ -59,39 +59,81 @@ export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
 export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
 
 export const addPost = {
-  type: ADD_POST
+  type: ADD_POST_REQUEST
 };
 
 // 액션에도 저장원하는 작은단위 데이터 구조만들어준다
 
-export const addDummy = {
-  type: ADD_DUMMY,
-  data: {
-    content: "Hello",
-    UserId: 1,
-    User: {
-      nickname: "스티브"
-    }
-  }
-};
+// export const addDummy = {
+//   type: ADD_DUMMY,
+//   data: {
+//     content: "Hello",
+//     UserId: 1,
+//     User: {
+//       nickname: "스티브"
+//     }
+//   }
+// };
 
-const reducer = (state = initState, action) => {
+export default (state = initState, action) => {
   switch (action.type) {
-    case ADD_POST:
+    case ADD_POST_REQUEST: {
+      return {
+        ...state,
+        isAddingPost: true,
+        addPostErrorReason: "",
+        postAdded: false
+      };
+    }
+    case ADD_POST_SUCCESS: {
+      return {
+        ...state,
+        isAddingPost: false,
+        mainPosts: [dummyPost, ...state.mainPosts],
+        postAdded: true
+      };
+    }
+    case ADD_POST_FAILURE: {
+      return {
+        ...state,
+        isAddingPost: false,
+        addPostErrorReason: action.error
+      };
+    }
+    case ADD_COMMENT_REQUEST: {
+      return {
+        ...state,
+        isAddingComment: true,
+        addCommentErrorReason: "",
+        commentAdded: false
+      };
+    }
+    case ADD_COMMENT_SUCCESS: {
+      const postIndex = state.mainPosts.findIndex(
+        v => v.id === action.data.postId
+      );
+      const post = state.mainPosts[postIndex];
+      const Comments = [...post.Comments, dummyComment];
+      const mainPosts = [...state.mainPosts];
+      mainPosts[postIndex] = { ...post, Comments };
+      return {
+        ...state,
+        isAddingComment: false,
+        mainPosts,
+        commentAdded: true
+      };
+    }
+    case ADD_COMMENT_FAILURE: {
+      return {
+        ...state,
+        isAddingComment: false,
+        addCommentErrorReason: action.error
+      };
+    }
+    default: {
       return {
         ...state
       };
-    case ADD_DUMMY:
-      return {
-        ...state,
-        mainPosts: [...state.mainPosts, ...action.data]
-        // spread문법을 써서 새로운 객체를 만들어야 참조가 달라지고 불변성이 생겨서 state 변화를 알수있음
-        // spread를 남발하면 코드 가독성이 떨어지기때문에 immer.js같은 걸이용한다
-      };
-
-    default:
-      return state;
+    }
   }
 };
-
-export default reducer;
