@@ -13,17 +13,7 @@ const Home = () => {
 
   // 여러번써서 잘게쪼게는게 리랜더링 예방
 
-  useEffect(() => {
-    dispatch({
-      type: "HELLO_SAGA"
-    }); // 액션을 바로 스토어에 전달
-    dispatch({
-      type: "HELLO_SAGA"
-    }); // 액션을 바로 스토어에 전달
-    dispatch({
-      type: "HELLO_SAGA"
-    }); // 액션을 바로 스토어에 전달
-  }, []); // useeffect는 componentdidmount 랑같음
+  useEffect(() => {}, []); // useeffect는 componentdidmount 랑같음
 
   return (
     <div>

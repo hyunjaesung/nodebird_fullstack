@@ -2132,7 +2132,7 @@ _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(l
 _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchLogin),
     _marked3 =
 /*#__PURE__*/
-_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(helloSaga),
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchSignUp),
     _marked4 =
 /*#__PURE__*/
 _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(userSaga);
@@ -2180,17 +2180,45 @@ function login() {
       }
     }
   }, _marked, null, [[0, 7]]);
-}
+} // function* watchLogin() {
+//   yield takeLatest(LOG_IN, login);
+//   //여기서 takeLatest가 LOG_IN 액션이 dispatch 되는걸 기다려서
+//   // dispatch될때 login 제너레이터를 호출한다
+//   // 일종의 액션리스너
+// }
+// const HELLO_SAGA = "HELLO_SAGA";
+// function* watchHello() {
+//   console.log("beforeSaga");
+//   while (true) {
+//     yield take(HELLO_SAGA);
+//     console.log("hellosaga");
+//   }
+// }
+
 
 function watchLogin() {
   return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function watchLogin$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])(_reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN"], login);
+          if (false) {}
 
-        case 2:
+          _context2.next = 3;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["take"])(_reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN"]);
+
+        case 3:
+          _context2.next = 5;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
+            // put은 사가의 디스패치
+            //LOG_IN  액션받으면 LOG_IN_SUCCESS 디스패치
+            type: _reducers_user__WEBPACK_IMPORTED_MODULE_2__["LOG_IN_SUCCESS"]
+          });
+
+        case 5:
+          _context2.next = 0;
+          break;
+
+        case 7:
         case "end":
           return _context2.stop();
       }
@@ -2198,33 +2226,18 @@ function watchLogin() {
   }, _marked2);
 }
 
-var HELLO_SAGA = "HELLO_SAGA";
-
-function helloSaga() {
-  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function helloSaga$(_context3) {
+function watchSignUp() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function watchSignUp$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          console.log("beforeSaga");
-
-        case 1:
-          if (false) {}
-
-          _context3.next = 4;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["take"])(HELLO_SAGA);
-
-        case 4:
-          console.log("hellosaga");
-          _context3.next = 1;
-          break;
-
-        case 7:
         case "end":
           return _context3.stop();
       }
     }
   }, _marked3);
-}
+} // all은 여러 이펙트를 동시 실행가능케함
+
 
 function userSaga() {
   return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function userSaga$(_context4) {
@@ -2232,7 +2245,7 @@ function userSaga() {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchLogin), helloSaga()]);
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([watchLogin(), watchSignUp()]);
 
         case 2:
         case "end":
