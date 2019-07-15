@@ -455,8 +455,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/user */ "./reducers/user.js");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
 
 var _jsxFileName = "D:\\Webdev\\nodebird_fullstack\\front\\components\\SignupForm.js";
+
 
 
 
@@ -481,7 +484,8 @@ var SignupForm = function SignupForm() {
   var _useSelector = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(function (state) {
     return state.user;
   }),
-      isSigningUp = _useSelector.isSigningUp;
+      isSigningUp = _useSelector.isSigningUp,
+      me = _useSelector.me;
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(""),
       _useState4 = Object(_babel_runtime_corejs2_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState3, 2),
@@ -520,6 +524,12 @@ var SignupForm = function SignupForm() {
       password = _useInput6[0],
       onChangePassword = _useInput6[1];
 
+  useEffect(function () {
+    if (me) {
+      next_router__WEBPACK_IMPORTED_MODULE_5___default.a.push("/"); // 회원가입하고 로그인되면 바로 메인으로가게
+    }
+  }, [me && me.id]); // 가드해주기
+
   var onSubmit = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (e) {
     e.preventDefault();
 
@@ -553,26 +563,26 @@ var SignupForm = function SignupForm() {
     onSubmit: onSubmit,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60
+      lineNumber: 67
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61
+      lineNumber: 68
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "user-id",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62
+      lineNumber: 69
     },
     __self: this
   }, "\uC544\uC774\uB514"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63
+      lineNumber: 70
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"], {
@@ -582,26 +592,26 @@ var SignupForm = function SignupForm() {
     onChange: onChangeId,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64
+      lineNumber: 71
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 66
+      lineNumber: 73
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "user-nick",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 67
+      lineNumber: 74
     },
     __self: this
   }, "\uB2C9\uB124\uC784"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68
+      lineNumber: 75
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"], {
@@ -611,26 +621,26 @@ var SignupForm = function SignupForm() {
     onChange: onChangeNick,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69
+      lineNumber: 76
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76
+      lineNumber: 83
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "user-password",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77
+      lineNumber: 84
     },
     __self: this
   }, "\uBE44\uBC00\uBC88\uD638"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 78
+      lineNumber: 85
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"], {
@@ -641,26 +651,26 @@ var SignupForm = function SignupForm() {
     onChange: onChangePassword,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79
+      lineNumber: 86
     },
     __self: this
   })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87
+      lineNumber: 94
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
     htmlFor: "user-password-check",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 88
+      lineNumber: 95
     },
     __self: this
   }, "\uBE44\uBC00\uBC88\uD638\uCCB4\uD06C"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 89
+      lineNumber: 96
     },
     __self: this
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Input"], {
@@ -671,7 +681,7 @@ var SignupForm = function SignupForm() {
     onChange: onChangePasswordCheck,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 90
+      lineNumber: 97
     },
     __self: this
   }), passwordError && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -680,13 +690,13 @@ var SignupForm = function SignupForm() {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98
+      lineNumber: 105
     },
     __self: this
   }, "\uBE44\uBC00\uBC88\uD638\uAC00 \uC77C\uCE58\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4!! ")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101
+      lineNumber: 108
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Checkbox"], {
@@ -695,7 +705,7 @@ var SignupForm = function SignupForm() {
     onChange: onChangeTerm,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102
+      lineNumber: 109
     },
     __self: this
   }, "\uB3D9\uC758\uD569\uB2C8\uAE4C"), TermError && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -704,7 +714,7 @@ var SignupForm = function SignupForm() {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 106
+      lineNumber: 113
     },
     __self: this
   }, "\uC57D\uAD00\uC5D0 \uB3D9\uC758\uD558\uC138\uC694!! ")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -713,7 +723,7 @@ var SignupForm = function SignupForm() {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109
+      lineNumber: 116
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(antd__WEBPACK_IMPORTED_MODULE_2__["Button"], {
@@ -722,7 +732,7 @@ var SignupForm = function SignupForm() {
     loading: isSigningUp,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110
+      lineNumber: 117
     },
     __self: this
   }, "\uAC00\uC785\uD558\uAE30"))));
@@ -2113,7 +2123,9 @@ var dummyUser = {
   nickname: "스티브",
   Post: [],
   Followings: [],
-  Followers: []
+  Followers: [],
+  id: 1 // useEffect 에는 객체가아닌 값을넣어야한다
+
 };
 var initState = {
   isLoggedIn: false,

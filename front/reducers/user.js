@@ -2,7 +2,8 @@ const dummyUser = {
   nickname: "스티브",
   Post: [],
   Followings: [],
-  Followers: []
+  Followers: [],
+  id: 1 // useEffect 에는 객체가아닌 값을넣어야한다
 };
 
 const initState = {
