@@ -73,7 +73,6 @@ function* watchSignUp() {
 
 // all은 여러 이펙트를 동시 실행가능케함
 export default function* userSaga() {
-  console.log("saga");
   yield all([fork(watchLogin), fork(watchSignUp)]);
   // 괄호 위치 유의!!
   // 리스너 여러개 쓰고싶으면 all을 씀

@@ -9,7 +9,16 @@ const initState = {
     }
   ], // 화면에 보일 포스트
   addPostErrorReason: false, // 포스트 업로드 실패사유
-  isAddingPost: false // 포스트 업로드중
+  isAddingPost: false, // 포스트 업로드중
+  postAdded: false // 포스트 되었을때 비워주기용
+};
+
+const dummyPost = {
+  User: {
+    id: 1,
+    nickname: "스티브"
+  },
+  content: "나는 더미에용"
 };
 
 export const LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";

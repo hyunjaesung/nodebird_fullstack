@@ -5,15 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction, logoutAction } from "../reducers/user";
 
 const Home = () => {
-  const dispatch = useDispatch(); // 바로 디스패치 쓸수있다, connect 필요없다
-
   // const { user } = useSelector(state => state.user.user); // state는 전체 state 의미
-  const { isLoggedIn } = useSelector(state => state.user.isLoggedIn);
+  const { isLoggedIn } = useSelector(state => state.user);
   const { mainPosts } = useSelector(state => state.post);
 
   // 여러번써서 잘게쪼게는게 리랜더링 예방
-
-  useEffect(() => {}, []); // useeffect는 componentdidmount 랑같음
 
   return (
     <div>
