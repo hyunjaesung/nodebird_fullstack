@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Button, Avatar, Icon, Card, Input, Comment, List, Form } from "antd";
 import propTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,6 +8,7 @@ const MainPosts = ({ post }) => {
   const [commentFormOpened, setCommentFormOpened] = useState(false);
   const [commentText, setCommentText] = useState("");
   const { me } = useSelector(state => state.user);
+  const { commentAdded, isLoadingComment } = useSelector(state => state.post);
   const dispatch = useDispatch();
 
   const onToggleComment = useCallback(
@@ -15,15 +16,25 @@ const MainPosts = ({ post }) => {
     []
   );
 
-  const onSubmitComment = useCallback(e => {
-    e.preventDefault();
-    if (!me) {
-      return alert("로그인이 필요합니다");
-    }
-    dispatch({
-      type: ADD_COMMENT_REQUEST
-    });
-  }, []);
+  const onSubmitComment = useCallback(
+    e => {
+      e.preventDefault();
+      if (!me) {
+        return alert("로그인이 필요합니다");
+      }
+      dispatch({
+        type: ADD_COMMENT_REQUEST,
+        data: {
+          postId: post.id
+        }
+      });
+    },
+    [me && me.id] // 의존성 잘넣어줘야된다 안그러면 계속 useCallback이 null인걸로 기억함
+  );
+
+  useEffect(() => {
+    setCommentText("");
+  }, [commentAdded === true]);
 
   const onChangeCommentText = useCallback(e => {
     setCommentText(e.target.value);
@@ -59,14 +70,14 @@ const MainPosts = ({ post }) => {
                 onChange={onChangeCommentText}
               />
             </Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoadingComment}>
               삐약
             </Button>
           </Form>
           <List
             header={`${post.Comments ? post.Comments.length : 0} 댓글`}
             itemLayout="horizontal"
-            dataSource={post.Comment || []}
+            dataSource={post.Comments || []}
             renderItem={item => (
               <li>
                 <Comment

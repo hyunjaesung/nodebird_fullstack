@@ -1932,30 +1932,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var initState = {
-  imagePaths: [],
-  // 미리보기 이미지 경로
+  id: 1,
   mainPosts: [{
+    id: 1,
     User: {
       nickname: "steve",
       id: 1
     },
     content: "첫번째게시글",
-    img: "https://cdn.designbyhumans.com/product_images/p/898810.f56.f949aS7ay1Cm2MjUAAA-650x650-b-p.jpg"
+    img: "https://cdn.designbyhumans.com/product_images/p/898810.f56.f949aS7ay1Cm2MjUAAA-650x650-b-p.jpg",
+    Comments: []
   }],
   // 화면에 보일 포스트
-  addPostErrorReason: false,
-  // 포스트 업로드 실패사유
+  imagePaths: [],
+  // 미리보기 이미지 경로
+  addPostErrorReason: "",
+  // 포스트 업로드 실패 사유
   isAddingPost: false,
-  // 포스트 업로드중
-  postAdded: false // 포스트 되었을때 비워주기용
-
+  // 포스트 업로드 중
+  postAdded: false,
+  // 포스트 업로드 성공
+  isAddingComment: false,
+  addCommentErrorReason: "",
+  commentAdded: false
 };
 var dummyPost = {
+  id: 2,
   User: {
     id: 1,
     nickname: "스티브"
   },
-  content: "나는 더미에용"
+  content: "나는 더미에용",
+  Comments: []
+};
+var dummyComment = {
+  id: 1,
+  User: {
+    id: 1,
+    nickname: "스티브"
+  },
+  createdAt: new Date(),
+  content: "더미댓글입니다"
 };
 var LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";
 var LOAD_MAIN_POSTS_SUCCESS = "LOAD_MAIN_POSTS_SUCCESS";
@@ -2023,7 +2040,7 @@ var addPost = {
       {
         return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
           isAddingPost: false,
-          mainPosts: [dummyPost].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts)),
+          mainPosts: [].concat(Object(_babel_runtime_corejs2_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(state.mainPosts), [dummyPost]),
           postAdded: true
         });
       }
@@ -2047,6 +2064,9 @@ var addPost = {
 
     case ADD_COMMENT_SUCCESS:
       {
+        // 게시글이 여러개 있는데 거기에 껴서넣어줘야함
+        // 불변성을 지키면서 넣어줘야함
+        // 이리 길게 해서 지겨운짓을 안하려면 immer 를 씀
         var postIndex = state.mainPosts.findIndex(function (v) {
           return v.id === action.data.postId;
         });
@@ -2057,7 +2077,9 @@ var addPost = {
 
         mainPosts[postIndex] = Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, post, {
           Comments: Comments
-        });
+        }); // 코멘트들 새로 만들어서 새 포스트만든곳에 넣어서 넣어주기
+
+        console.log(mainPosts);
         return Object(_babel_runtime_corejs2_helpers_esm_objectSpread__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state, {
           isAddingComment: false,
           mainPosts: mainPosts,
@@ -2336,19 +2358,27 @@ __webpack_require__.r(__webpack_exports__);
 
 var _marked =
 /*#__PURE__*/
-_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(addPost),
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(addComment),
     _marked2 =
 /*#__PURE__*/
-_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchAddPost),
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchAddComment),
     _marked3 =
+/*#__PURE__*/
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(addPost),
+    _marked4 =
+/*#__PURE__*/
+_babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(watchAddPost),
+    _marked5 =
 /*#__PURE__*/
 _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(postSaga);
 
 
 
 
-function addPost() {
-  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function addPost$(_context) {
+function addCommentAPI() {}
+
+function addComment(action) {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function addComment$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
@@ -2359,7 +2389,10 @@ function addPost() {
         case 3:
           _context.next = 5;
           return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
-            type: _reducers_post__WEBPACK_IMPORTED_MODULE_2__["ADD_POST_SUCCESS"]
+            type: _reducers_post__WEBPACK_IMPORTED_MODULE_2__["ADD_COMMENT_SUCCESS"],
+            data: {
+              postId: action.data.postId
+            }
           });
 
         case 5:
@@ -2383,13 +2416,13 @@ function addPost() {
   }, _marked, null, [[0, 7]]);
 }
 
-function watchAddPost() {
-  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function watchAddPost$(_context2) {
+function watchAddComment() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function watchAddComment$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])(_reducers_post__WEBPACK_IMPORTED_MODULE_2__["ADD_POST_REQUEST"], addPost);
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])(_reducers_post__WEBPACK_IMPORTED_MODULE_2__["ADD_COMMENT_REQUEST"], addComment);
 
         case 2:
         case "end":
@@ -2399,20 +2432,74 @@ function watchAddPost() {
   }, _marked2);
 }
 
-function postSaga() {
-  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function postSaga$(_context3) {
+function addPostAPI() {}
+
+function addPost() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function addPost$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          _context3.next = 2;
-          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddPost)]);
+          _context3.prev = 0;
+          _context3.next = 3;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["delay"])(2000);
 
-        case 2:
+        case 3:
+          _context3.next = 5;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
+            type: _reducers_post__WEBPACK_IMPORTED_MODULE_2__["ADD_POST_SUCCESS"]
+          });
+
+        case 5:
+          _context3.next = 11;
+          break;
+
+        case 7:
+          _context3.prev = 7;
+          _context3.t0 = _context3["catch"](0);
+          _context3.next = 11;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["put"])({
+            type: ADD_Post_FAILURE,
+            error: _context3.t0
+          });
+
+        case 11:
         case "end":
           return _context3.stop();
       }
     }
-  }, _marked3);
+  }, _marked3, null, [[0, 7]]);
+}
+
+function watchAddPost() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function watchAddPost$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["takeLatest"])(_reducers_post__WEBPACK_IMPORTED_MODULE_2__["ADD_POST_REQUEST"], addPost);
+
+        case 2:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, _marked4);
+}
+
+function postSaga() {
+  return _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function postSaga$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddPost), Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_1__["fork"])(watchAddComment)]);
+
+        case 2:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, _marked5);
 }
 
 /***/ }),

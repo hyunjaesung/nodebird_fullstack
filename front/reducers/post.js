@@ -1,24 +1,42 @@
 const initState = {
-  imagePaths: [], // 미리보기 이미지 경로
+  id: 1,
   mainPosts: [
     {
+      id: 1,
       User: { nickname: "steve", id: 1 },
       content: "첫번째게시글",
       img:
-        "https://cdn.designbyhumans.com/product_images/p/898810.f56.f949aS7ay1Cm2MjUAAA-650x650-b-p.jpg"
+        "https://cdn.designbyhumans.com/product_images/p/898810.f56.f949aS7ay1Cm2MjUAAA-650x650-b-p.jpg",
+      Comments: []
     }
   ], // 화면에 보일 포스트
-  addPostErrorReason: false, // 포스트 업로드 실패사유
-  isAddingPost: false, // 포스트 업로드중
-  postAdded: false // 포스트 되었을때 비워주기용
+  imagePaths: [], // 미리보기 이미지 경로
+  addPostErrorReason: "", // 포스트 업로드 실패 사유
+  isAddingPost: false, // 포스트 업로드 중
+  postAdded: false, // 포스트 업로드 성공
+  isAddingComment: false,
+  addCommentErrorReason: "",
+  commentAdded: false
 };
 
 const dummyPost = {
+  id: 2,
   User: {
     id: 1,
     nickname: "스티브"
   },
-  content: "나는 더미에용"
+  content: "나는 더미에용",
+  Comments: []
+};
+
+const dummyComment = {
+  id: 1,
+  User: {
+    id: 1,
+    nickname: "스티브"
+  },
+  createdAt: new Date(),
+  content: "더미댓글입니다"
 };
 
 export const LOAD_MAIN_POSTS_REQUEST = "LOAD_MAIN_POSTS_REQUEST";
@@ -98,7 +116,7 @@ export default (state = initState, action) => {
       return {
         ...state,
         isAddingPost: false,
-        mainPosts: [dummyPost, ...state.mainPosts],
+        mainPosts: [...state.mainPosts, dummyPost],
         postAdded: true
       };
     }
@@ -118,6 +136,9 @@ export default (state = initState, action) => {
       };
     }
     case ADD_COMMENT_SUCCESS: {
+      // 게시글이 여러개 있는데 거기에 껴서넣어줘야함
+      // 불변성을 지키면서 넣어줘야함
+      // 이리 길게 해서 지겨운짓을 안하려면 immer 를 씀
       const postIndex = state.mainPosts.findIndex(
         v => v.id === action.data.postId
       );
@@ -125,6 +146,8 @@ export default (state = initState, action) => {
       const Comments = [...post.Comments, dummyComment];
       const mainPosts = [...state.mainPosts];
       mainPosts[postIndex] = { ...post, Comments };
+      // 코멘트들 새로 만들어서 새 포스트만든곳에 넣어서 넣어주기
+      console.log(mainPosts);
       return {
         ...state,
         isAddingComment: false,
